@@ -1,17 +1,22 @@
 Property layer :
 
-1.This is used to store the value of each cell and it is attached to a grid 
-2.internally grid keeps a dict of these arrays(values) as attributes 
-3.Property layers aren’t just “array storage” – they’re the built‑in way Mesa
+ 1. This is used to store the value of each cell and it is attached to a grid.
+
+ 2. Internally grid keeps a dict of these arrays(values) as attributes.
+
+3. Property layers aren’t just “array storage” – they’re the built‑in way Mesa
 lets you put environmental data on the grid and then see it in the
 visualiser.
 
 
 properties to note:
+```
 1. Dual Storage Pattern
    self.property_layers[name] = array   # Dict (internal registry)
    setattr(self, name, array)           # Attribute (convenient access)
    Why both? Dict for iteration, attribute for clean API.
+```
+```
 2. Dynamic Cell Class Creation:
   1.
    self.cell_klass = type(
@@ -23,7 +28,8 @@ properties to note:
       Each grid gets its own Cell subclass
       Grid A and Grid B are completely separate
       cell.property_layers is unique per grid
-
+```
+```
   2. Memory Optimization
        "__slots__": ()
        This tells Python: "Don't allow random new attributes on cells. Only use predefined ones." It saves memory when you have thousands of        
@@ -31,7 +37,9 @@ properties to note:
 3. Pickle Registration
 
 copyreg.pickle(self.cell_klass, pickle_gridcell)
-
+```
+Diagram:
+```
 ┌─────────────────────────────────────────────────┐
 │  Main Process (Core 1)                          │              
 │  - Has Cell objects                             │              
@@ -44,7 +52,7 @@ copyreg.pickle(self.cell_klass, pickle_gridcell)
 │  Worker Process (Core 2)                        │              
 │  - Needs to receive and use Cell objects        │              
 └─────────────────────────────────────────────────┘
-
+```
 Solution:
 Pickle cells → bytes (send over)
 Unpickle bytes → cells (receive on other core)
