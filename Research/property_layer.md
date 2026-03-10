@@ -16,7 +16,7 @@ properties to note:
   1.
    self.cell_klass = type(
     "GridCell",                			 # 1. Name: Call it "GridCell"
-    (self.cell_klass,),       			 # 2. Parent: Inherit from the original Cell class
+    (self.cell_klass,),       			      # 2. Parent: Inherit from the original Cell class
     {"property_layers": set(), "__slots__": ()}  # 3. Extras: Add these features
   )
 
@@ -33,16 +33,16 @@ properties to note:
 copyreg.pickle(self.cell_klass, pickle_gridcell)
 
 ┌─────────────────────────────────────────────────┐
-│  Main Process (Core 1)                          │              |
-│  - Has Cell objects                             │              |
-│  - Needs to send cells to other cores           │              |
+│  Main Process (Core 1)                          │              
+│  - Has Cell objects                             │              
+│  - Needs to send cells to other cores           │              
 └─────────────────────────────────────────────────┘
                     │
                     │ Can't send Python objects directly!
                     ▼
 ┌─────────────────────────────────────────────────┐
-│  Worker Process (Core 2)                        │              |
-│  - Needs to receive and use Cell objects        │              |
+│  Worker Process (Core 2)                        │              
+│  - Needs to receive and use Cell objects        │              
 └─────────────────────────────────────────────────┘
 
 Solution:
