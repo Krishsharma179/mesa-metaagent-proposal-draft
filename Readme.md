@@ -1,4 +1,4 @@
-# mesa-geo-proposal-draft
+# mesa-metaagent-proposal-draft
 Documentation and draft for my GSoC 2026 proposal: Refactoring Mesa meta agent.This Includes technical research, proposal drafts, and system design diagrams.
 
 # Mesa-Geo GSoC 2026 Proposal: Meta-agent Refactor
